@@ -8,4 +8,5 @@ import './broadcast-control.css'
 import './premium-office.css'
 import './office-v2.css'
 import './diorama-office.css'
+import './isometric-sim.css'
 createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>)
