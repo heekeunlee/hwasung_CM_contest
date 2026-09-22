@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Archive, BarChart3, Coffee, FileText, Headphones, Music2, Pause, Play, Radio, Users, Volume2, X } from 'lucide-react'
+import ThreeOffice from './ThreeOffice'
 
 const rooms = [
   { id:'music', label:'RECORDING ROOM', sub:'작사 · 프로듀싱 · 녹음', x:2, y:4, w:25, h:29, tone:'purple', shape:'studio' },
@@ -139,7 +140,7 @@ export default function App(){
   const officeTime=useMemo(()=>{const m=(9*60+tick*3)%1440; return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`},[tick])
   const filtered=filter==='전체'?reports:reports.filter(r=>r.type===filter)
 
-  return <OfficeV2 agents={agents} chosen={chosen} selected={selected} setSelected={setSelected} paused={paused} setPaused={setPaused} speed={speed} setSpeed={setSpeed} progress={progress} officeTime={officeTime} setReportOpen={setReportOpen} reportOpen={reportOpen} activeReport={activeReport} setActiveReport={setActiveReport} filter={filter} setFilter={setFilter}/>
+  return <ThreeOffice agents={agents} chosen={chosen} selected={selected} setSelected={setSelected} paused={paused} setPaused={setPaused} speed={speed} setSpeed={setSpeed} progress={progress} officeTime={officeTime} setReportOpen={setReportOpen} reportOpen={reportOpen} reportsCount={reports.length} reports={reports} filter={filter} setFilter={setFilter} activeReport={activeReport} setActiveReport={setActiveReport}/>
 
   return <main>
     <header className="topbar">
