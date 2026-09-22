@@ -2,39 +2,39 @@ import { useEffect, useMemo, useState } from 'react'
 import { Archive, BarChart3, Coffee, FileText, Headphones, Music2, Pause, Play, Radio, Users, Volume2, X } from 'lucide-react'
 
 const rooms = [
-  { id:'strategy', label:'STRATEGY LAB', sub:'브랜드 전략 · 리서치', x:2, y:4, w:29, h:29, tone:'teal' },
-  { id:'meeting', label:'MEETING ROOM', sub:'의사결정 · 리뷰', x:35, y:4, w:30, h:29, tone:'amber' },
-  { id:'archive', label:'ORIGINALITY ARCHIVE', sub:'유사성 조사 · 업무보고', x:69, y:4, w:29, h:29, tone:'violet' },
-  { id:'music', label:'MUSIC STUDIO', sub:'작사 · 프로듀싱', x:2, y:37, w:38, h:38, tone:'purple' },
-  { id:'lounge', label:'VINYL LOUNGE', sub:'커피 · 자유 대화', x:44, y:37, w:22, h:38, tone:'orange' },
-  { id:'review', label:'A&R LISTENING', sub:'청음 · 독립 평가', x:70, y:37, w:28, h:38, tone:'blue' },
-  { id:'booth', label:'VOCAL BOOTH', sub:'발음 · 가창', x:2, y:79, w:28, h:18, tone:'red' },
-  { id:'mix', label:'MIX DESK', sub:'후반 · 재생 검수', x:34, y:79, w:31, h:18, tone:'green' },
-  { id:'arcade', label:'BREAK ZONE', sub:'게임 · 휴식', x:69, y:79, w:29, h:18, tone:'pink' },
+  { id:'strategy', label:'STRATEGY LAB', sub:'브랜드 전략 · 리서치', x:2, y:4, w:29, h:29, tone:'teal', shape:'cut' },
+  { id:'meeting', label:'MEETING ROOM', sub:'의사결정 · 리뷰', x:35, y:4, w:30, h:29, tone:'amber', shape:'oval' },
+  { id:'archive', label:'ORIGINALITY ARCHIVE', sub:'유사성 조사 · 업무보고', x:69, y:4, w:29, h:29, tone:'violet', shape:'arch' },
+  { id:'music', label:'MUSIC STUDIO', sub:'작사 · 프로듀싱', x:2, y:37, w:38, h:38, tone:'purple', shape:'studio' },
+  { id:'lounge', label:'VINYL LOUNGE', sub:'커피 · 자유 대화', x:44, y:37, w:22, h:38, tone:'orange', shape:'round' },
+  { id:'review', label:'A&R LISTENING', sub:'청음 · 독립 평가', x:70, y:37, w:28, h:38, tone:'blue', shape:'cut' },
+  { id:'booth', label:'VOCAL BOOTH', sub:'발음 · 가창', x:2, y:79, w:28, h:18, tone:'red', shape:'pill' },
+  { id:'mix', label:'MIX DESK', sub:'후반 · 재생 검수', x:34, y:79, w:31, h:18, tone:'green', shape:'notch' },
+  { id:'arcade', label:'BREAK ZONE', sub:'게임 · 휴식', x:69, y:79, w:29, h:18, tone:'pink', shape:'round' },
 ]
 
 const agentsSeed = [
-  { id:'lead', name:'제부', role:'총괄 프로듀서', team:'제작본부', color:'#ff735c', x:48, y:23, home:[50,22], icon:'◆', task:'브리프와 의사결정 통합', hair:'wave', face:'smile', look:'jacket' },
-  { id:'brand', name:'동탄', role:'브랜드 전략가', team:'전략기획팀', color:'#26bdb8', x:12, y:18, home:[12,18], icon:'▤', task:'화성만의 핵심 메시지 정의', hair:'bob', face:'bright', look:'vest' },
-  { id:'research', name:'우음', role:'지역·청중 리서처', team:'전략기획팀', color:'#5bc58c', x:24, y:24, home:[24,24], icon:'⌕', task:'지역 근거와 청취 상황 조사', hair:'short', face:'calm', look:'cardigan' },
-  { id:'producer', name:'전곡', role:'뮤직 프로듀서', team:'음악개발팀', color:'#8c6be8', x:15, y:53, home:[15,53], icon:'♫', task:'세 가지 음악 방향 설계', hair:'spike', face:'focus', look:'hoodie' },
-  { id:'writer', name:'송산', role:'작사·탑라이너', team:'음악개발팀', color:'#f5b83d', x:28, y:65, home:[28,65], icon:'✎', task:'첫 5초 후렴 후보 작성', hair:'long', face:'smile', look:'knit' },
-  { id:'vocal', name:'햇살', role:'가창·발음 디렉터', team:'음악품질팀', color:'#f15f7a', x:16, y:88, home:[16,88], icon:'●', task:'화성특례시 발음과 호흡 검토', hair:'ponytail', face:'sing', look:'scarf' },
-  { id:'ar', name:'궁평', role:'A&R 디렉터', team:'독립평가팀', color:'#4d98ef', x:79, y:54, home:[79,54], icon:'A', task:'발전시킬 데모 후보 선별', hair:'part', face:'calm', look:'suit' },
-  { id:'critic', name:'융건', role:'대중음악 평론가', team:'독립평가팀', color:'#8994a8', x:89, y:66, home:[89,66], icon:'★', task:'개성과 장르 완성도 비평', hair:'curl', face:'focus', look:'coat' },
-  { id:'originality', name:'고정', role:'독창성·유사성 리서처', team:'권리검증팀', color:'#ec6a45', x:89, y:21, home:[89,21], icon:'◎', task:'가사·제목·콘셉트 선행작 조사', hair:'cap', face:'focus', look:'utility' },
-  { id:'audio', name:'누에', role:'믹싱·QA 엔지니어', team:'후반제작팀', color:'#55bd73', x:48, y:89, home:[48,89], icon:'≋', task:'길이·음량·재생환경 검수', hair:'buzz', face:'bright', look:'tee' },
-  { id:'visual', name:'루나', role:'아트·납품 디렉터', team:'후반제작팀', color:'#ee70b0', x:83, y:89, home:[83,89], icon:'▣', task:'앨범아트와 제출 패키지 설계', hair:'bun', face:'smile', look:'blazer' },
+  { id:'lead', name:'제부장', role:'총괄 프로듀서', team:'제작본부', color:'#ff735c', x:48, y:23, home:[50,22], icon:'◆', task:'브리프와 의사결정 통합', hair:'wave', face:'smile', look:'jacket' },
+  { id:'brand', name:'동탄온', role:'브랜드 전략가', team:'전략기획팀', color:'#26bdb8', x:12, y:18, home:[12,18], icon:'▤', task:'화성만의 핵심 메시지 정의', hair:'bob', face:'bright', look:'vest' },
+  { id:'research', name:'우음표', role:'지역·청중 리서처', team:'전략기획팀', color:'#5bc58c', x:24, y:24, home:[24,24], icon:'⌕', task:'지역 근거와 청취 상황 조사', hair:'short', face:'calm', look:'cardigan' },
+  { id:'producer', name:'전곡믹스', role:'뮤직 프로듀서', team:'음악개발팀', color:'#8c6be8', x:15, y:53, home:[15,53], icon:'♫', task:'세 가지 음악 방향 설계', hair:'spike', face:'focus', look:'hoodie' },
+  { id:'writer', name:'송산송', role:'작사·탑라이너', team:'음악개발팀', color:'#f5b83d', x:28, y:65, home:[28,65], icon:'✎', task:'첫 5초 후렴 후보 작성', hair:'long', face:'smile', look:'knit' },
+  { id:'vocal', name:'햇살도레미', role:'가창·발음 디렉터', team:'음악품질팀', color:'#f15f7a', x:16, y:88, home:[16,88], icon:'●', task:'화성특례시 발음과 호흡 검토', hair:'ponytail', face:'sing', look:'scarf' },
+  { id:'ar', name:'궁평가', role:'A&R 디렉터', team:'독립평가팀', color:'#4d98ef', x:79, y:54, home:[79,54], icon:'A', task:'발전시킬 데모 후보 선별', hair:'part', face:'calm', look:'suit' },
+  { id:'critic', name:'융건평', role:'대중음악 평론가', team:'독립평가팀', color:'#8994a8', x:89, y:66, home:[89,66], icon:'★', task:'개성과 장르 완성도 비평', hair:'curl', face:'focus', look:'coat' },
+  { id:'originality', name:'고정음', role:'독창성·유사성 리서처', team:'권리검증팀', color:'#ec6a45', x:89, y:21, home:[89,21], icon:'◎', task:'가사·제목·콘셉트 선행작 조사', hair:'cap', face:'focus', look:'utility' },
+  { id:'audio', name:'누에비트', role:'믹싱·QA 엔지니어', team:'후반제작팀', color:'#55bd73', x:48, y:89, home:[48,89], icon:'≋', task:'길이·음량·재생환경 검수', hair:'buzz', face:'bright', look:'tee' },
+  { id:'visual', name:'루나픽', role:'아트·납품 디렉터', team:'후반제작팀', color:'#ee70b0', x:83, y:89, home:[83,89], icon:'▣', task:'앨범아트와 제출 패키지 설계', hair:'bun', face:'smile', look:'blazer' },
 ]
 
 const reports = [
-  { id:1, type:'전략', team:'전략기획팀', title:'CM송 제작 운영안 v2', status:'승인', owner:'제부 · 동탄', date:'09.22', summary:'음반사의 A&R 체계와 광고음악 제작사의 브랜드 전략을 결합한 운영안입니다.', details:['브랜드 전략과 A&R의 판단권을 분리','3개 콘셉트 → 6개 데모 → 상위 2안 개선','Suno 생성은 단일 운영자가 담당','실제 청취 결과와 AI 의견을 구분'] },
-  { id:2, type:'브리프', team:'전략기획팀', title:'수상 목표 크리에이티브 브리프', status:'검토 중', owner:'동탄 · 우음', date:'09.22', summary:'한 번 듣고 화성을 기억하며 후렴을 따라 부를 수 있는 1분 이하 브랜드 음악.', details:['핵심 주제: 모두의 행복, 더 큰 화성','도시명과 후렴의 결합 기억','생활 공감 / 풍경 연결 / 주고받는 후렴 탐색','화성해 표현 제외'] },
-  { id:3, type:'가사', team:'음악개발팀', title:'후렴 후보 비교 메모', status:'초안', owner:'송산 · 전곡', date:'09.22', summary:'기존 ‘여기서 행복해’는 확정안이 아니라 친숙함 비교용 기준안으로 재검토합니다.', details:['후렴은 첫 5초 안에 등장','화성 앞에 짧은 쉼을 두어 도시명 강조','읽기 좋은 문장과 부르기 좋은 음절을 함께 검토','각 콘셉트별 후렴 2개 개발 예정'] },
-  { id:4, type:'평가', team:'독립평가팀', title:'독립 데모 평가 규칙', status:'승인', owner:'궁평 · 융건', date:'09.22', summary:'후보를 익명화하고 A&R·평론·광고효과를 서로 다른 질문으로 평가합니다.', details:['제작자 추천순위 비공개','문제 구간 → 근거 → 수정 제안 → 손실 가능성','청취 불가 시 음악 평가는 보류','8~12명 실제 청취 테스트 제안'] },
-  { id:5, type:'기술', team:'제작운영팀', title:'Suno·브라우저 준비 상태', status:'대기', owner:'제부', date:'09.22', summary:'Chrome DevTools 연결은 설치·기본 실행을 확인했으며 Suno 로그인과 생성은 아직 검증 전입니다.', details:['로그인·생성·다운로드 경로 확인 필요','생성 전 크레딧 한도 확정','가사·스타일·모델·결과 URL 기록','중복 클릭 방지'] },
-  { id:6, type:'음원', team:'음악개발팀', title:'여기서 행복해 — 멜로디 스케치', status:'비교용', owner:'전곡', date:'09.22', summary:'112 BPM, C Major, 53초 길이의 기초 합성 시안. 최종 출품용 음원이 아닙니다.', details:['리드 악기가 가창 선율을 연주','끝에 공식 슬로건 내레이션','Suno 보컬 데모와 비교 예정','파일: here_happy_hwaseong_demo.mp3'], audio:true },
-  { id:7, type:'유사성', team:'권리검증팀', title:'독창성·선행작 조사 계획', status:'조사 전', owner:'고정', date:'09.22', summary:'선정 전 후보마다 제목·핵심 가사·후렴 문구·멜로디·광고 콘셉트의 유사성을 단계별로 조사합니다.', details:['가사 핵심구절과 제목을 정확검색·변형검색','음원 인식·멜로디 유사성 도구로 후보 확인','국내외 도시·관광 CM 및 상업음악 사례 조사','AI 생성 이력과 참고자료·검색일·URL 기록','검색 결과만으로 비표절을 보증하지 않으며 위험 후보는 전문가 확인'], caution:true },
+  { id:1, type:'전략', team:'전략기획팀', title:'CM송 제작 운영안 v2', status:'승인', owner:'제부장 · 동탄온', date:'09.22', summary:'음반사의 A&R 체계와 광고음악 제작사의 브랜드 전략을 결합한 운영안입니다.', details:['브랜드 전략과 A&R의 판단권을 분리','3개 콘셉트 → 6개 데모 → 상위 2안 개선','Suno 생성은 단일 운영자가 담당','실제 청취 결과와 AI 의견을 구분'] },
+  { id:2, type:'브리프', team:'전략기획팀', title:'수상 목표 크리에이티브 브리프', status:'검토 중', owner:'동탄온 · 우음표', date:'09.22', summary:'한 번 듣고 화성을 기억하며 후렴을 따라 부를 수 있는 1분 이하 브랜드 음악.', details:['핵심 주제: 모두의 행복, 더 큰 화성','도시명과 후렴의 결합 기억','생활 공감 / 풍경 연결 / 주고받는 후렴 탐색','화성해 표현 제외'] },
+  { id:3, type:'가사', team:'음악개발팀', title:'후렴 후보 비교 메모', status:'초안', owner:'송산송 · 전곡믹스', date:'09.22', summary:'기존 ‘여기서 행복해’는 확정안이 아니라 친숙함 비교용 기준안으로 재검토합니다.', details:['후렴은 첫 5초 안에 등장','화성 앞에 짧은 쉼을 두어 도시명 강조','읽기 좋은 문장과 부르기 좋은 음절을 함께 검토','각 콘셉트별 후렴 2개 개발 예정'] },
+  { id:4, type:'평가', team:'독립평가팀', title:'독립 데모 평가 규칙', status:'승인', owner:'궁평가 · 융건평', date:'09.22', summary:'후보를 익명화하고 A&R·평론·광고효과를 서로 다른 질문으로 평가합니다.', details:['제작자 추천순위 비공개','문제 구간 → 근거 → 수정 제안 → 손실 가능성','청취 불가 시 음악 평가는 보류','8~12명 실제 청취 테스트 제안'] },
+  { id:5, type:'기술', team:'제작운영팀', title:'Suno·브라우저 준비 상태', status:'대기', owner:'제부장', date:'09.22', summary:'Chrome DevTools 연결은 설치·기본 실행을 확인했으며 Suno 로그인과 생성은 아직 검증 전입니다.', details:['로그인·생성·다운로드 경로 확인 필요','생성 전 크레딧 한도 확정','가사·스타일·모델·결과 URL 기록','중복 클릭 방지'] },
+  { id:6, type:'음원', team:'음악개발팀', title:'여기서 행복해 — 멜로디 스케치', status:'비교용', owner:'전곡믹스', date:'09.22', summary:'112 BPM, C Major, 53초 길이의 기초 합성 시안. 최종 출품용 음원이 아닙니다.', details:['리드 악기가 가창 선율을 연주','끝에 공식 슬로건 내레이션','Suno 보컬 데모와 비교 예정','파일: here_happy_hwaseong_demo.mp3'], audio:true },
+  { id:7, type:'유사성', team:'권리검증팀', title:'독창성·선행작 조사 계획', status:'조사 전', owner:'고정음', date:'09.22', summary:'선정 전 후보마다 제목·핵심 가사·후렴 문구·멜로디·광고 콘셉트의 유사성을 단계별로 조사합니다.', details:['가사 핵심구절과 제목을 정확검색·변형검색','음원 인식·멜로디 유사성 도구로 후보 확인','국내외 도시·관광 CM 및 상업음악 사례 조사','AI 생성 이력과 참고자료·검색일·URL 기록','검색 결과만으로 비표절을 보증하지 않으며 위험 후보는 전문가 확인'], caution:true },
 ]
 
 const conversations = [
@@ -129,7 +129,7 @@ export default function App(){
       <div className="world-wrap">
         <div className="world">
           <div className="sunbeam"/><div className="grid"/>
-          {rooms.map(r=><section key={r.id} className={`room ${r.tone}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
+          {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
             <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
           </section>)}
           <div className="hall-sign">♪　CREATIVE FLOOR　♪</div>

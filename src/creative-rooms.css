@@ -1,0 +1,17 @@
+/* Distinct silhouettes turn the floor into a creative campus rather than a grid of boxes. */
+.room.shape-cut{clip-path:polygon(0 0,86% 0,100% 16%,100% 100%,9% 100%,0 82%)}
+.room.shape-oval{border-radius:48% 52% 45% 55% / 30% 32% 68% 70%}
+.room.shape-arch{border-radius:48% 48% 12px 12px / 34% 34% 12px 12px}
+.room.shape-studio{clip-path:polygon(0 9%,8% 0,92% 0,100% 9%,100% 91%,92% 100%,8% 100%,0 91%)}
+.room.shape-round{border-radius:30px 70px 38px 70px}
+.room.shape-pill{border-radius:999px}
+.room.shape-notch{clip-path:polygon(0 0,68% 0,68% 14%,100% 14%,100% 100%,0 100%)}
+.room.shape-cut::after,.room.shape-arch::after,.room.shape-studio::after,.room.shape-round::after,.room.shape-pill::after,.room.shape-notch::after{content:'';position:absolute;z-index:0;pointer-events:none;opacity:.72}
+.room.shape-cut::after{right:10px;bottom:10px;width:44px;height:12px;background:#fff2ba;border:2px solid #806273;box-shadow:6px -6px 0 #b7e8d0}
+.room.shape-oval::before{content:'';position:absolute;left:8%;bottom:13%;width:34px;height:34px;border-radius:50%;background:#fff0b4;border:3px solid #8d6b70;opacity:.72;pointer-events:none}
+.room.shape-arch::after{left:12%;top:18%;width:32px;height:23px;background:#bcebdc;border:3px solid #806273;border-radius:18px 18px 3px 3px;box-shadow:inset 0 -5px #ffd99a}
+.room.shape-studio::after{right:7%;bottom:12%;width:54px;height:18px;border:3px solid #806273;background:repeating-linear-gradient(90deg,#ffb36d 0 4px,transparent 4px 8px)}
+.room.shape-round::after{left:15%;top:22%;width:38px;height:38px;border-radius:50%;border:3px dashed #d18b63;background:#ffe8a6}
+.room.shape-pill::after{right:15%;top:24%;width:36px;height:15px;border-radius:10px;background:#c5f1df;border:3px solid #806273}
+.room.shape-notch::after{right:8%;bottom:9%;width:28px;height:28px;background:#ffd5a1;border:3px solid #806273;transform:rotate(45deg)}
+.room.shape-oval::after{content:'';position:absolute;right:12%;top:19%;width:26px;height:13px;border-radius:50%;background:#bcebdc;border:2px solid #806273;opacity:.72;pointer-events:none}
