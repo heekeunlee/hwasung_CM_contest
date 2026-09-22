@@ -142,6 +142,8 @@ export default function App(){
       <div className="world-wrap">
         <div className="world">
           <div className="sunbeam"/><div className="grid"/>
+          <div className="broadcast-wall" aria-hidden="true"><span>LIVE MIX</span><b>HWASEONG / CM CONTROL</b><i/><i/><i/></div>
+          <div className="floor-console" aria-hidden="true"><span>MASTER</span><i/><i/><i/><i/><b>● ● ● ● ● ●</b></div>
           <div className="office-props" aria-hidden="true"><span className="prop plant-a">♣</span><span className="prop poster-a">CM<br/>H</span><span className="prop guitar-a">♪</span><span className="prop speaker-a">▣</span><span className="prop lamp-a">◒</span><span className="prop plant-b">♣</span><span className="prop poster-b">IDEA<br/>WALL</span><span className="prop cable-a">〰〰</span></div>
           {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
             <h2>{r.label}<small>{r.sub}</small></h2><RoomFeatures room={r}/><Furniture room={r}/>
