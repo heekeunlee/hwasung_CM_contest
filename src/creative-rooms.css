@@ -15,3 +15,15 @@
 .room.shape-pill::after{right:15%;top:24%;width:36px;height:15px;border-radius:10px;background:#c5f1df;border:3px solid #806273}
 .room.shape-notch::after{right:8%;bottom:9%;width:28px;height:28px;background:#ffd5a1;border:3px solid #806273;transform:rotate(45deg)}
 .room.shape-oval::after{content:'';position:absolute;right:12%;top:19%;width:26px;height:13px;border-radius:50%;background:#bcebdc;border:2px solid #806273;opacity:.72;pointer-events:none}
+
+/* Personal workstations: every agent has a visible desk, monitor and chair. */
+.workstation{position:absolute;z-index:5;width:68px;height:54px;transform:translate(-50%,-35%);pointer-events:none}
+.workstation .monitor{position:absolute;left:21px;top:0;width:27px;height:19px;background:#30324b;border:3px solid #59445d;box-shadow:3px 3px 0 #b97761;display:grid;place-items:center;color:#a8f1d5;font:8px var(--pixel)}
+.workstation .monitor i{position:absolute;inset:3px;background:linear-gradient(135deg,#d1fff0,#6bbbd1 55%,#4f5787);opacity:.8}
+.workstation .monitor b{position:relative;z-index:1;font-size:7px;color:#fff2a8}
+.workstation .desk-top{position:absolute;left:5px;top:24px;width:58px;height:9px;border:2px solid #563948;box-shadow:inset 0 3px #fff1b0}
+.workstation .desk-top span{position:absolute;right:8px;top:-6px;width:8px;height:4px;background:#fff7dc;border:1px solid #543b4f}
+.workstation .desk-top em{position:absolute;left:8px;top:2px;width:13px;height:3px;background:#593f59;opacity:.8}
+.workstation .chair{position:absolute;left:28px;top:35px;width:16px;height:12px;background:#e88b73;border:2px solid #593b54;border-radius:5px 5px 2px 2px;box-shadow:0 7px 0 -3px #593b54}
+.workstation small{position:absolute;top:48px;left:50%;transform:translateX(-50%);font-size:7px;white-space:nowrap;color:#5a4055;background:#fff8de;border:1px solid #a27669;padding:1px 3px;box-shadow:1px 1px #dca965}
+.workstation + .person{z-index:10}

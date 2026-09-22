@@ -2,15 +2,15 @@ import { useEffect, useMemo, useState } from 'react'
 import { Archive, BarChart3, Coffee, FileText, Headphones, Music2, Pause, Play, Radio, Users, Volume2, X } from 'lucide-react'
 
 const rooms = [
-  { id:'strategy', label:'STRATEGY LAB', sub:'브랜드 전략 · 리서치', x:2, y:4, w:29, h:29, tone:'teal', shape:'cut' },
-  { id:'meeting', label:'MEETING ROOM', sub:'의사결정 · 리뷰', x:35, y:4, w:30, h:29, tone:'amber', shape:'oval' },
-  { id:'archive', label:'ORIGINALITY ARCHIVE', sub:'유사성 조사 · 업무보고', x:69, y:4, w:29, h:29, tone:'violet', shape:'arch' },
-  { id:'music', label:'MUSIC STUDIO', sub:'작사 · 프로듀싱', x:2, y:37, w:38, h:38, tone:'purple', shape:'studio' },
-  { id:'lounge', label:'VINYL LOUNGE', sub:'커피 · 자유 대화', x:44, y:37, w:22, h:38, tone:'orange', shape:'round' },
-  { id:'review', label:'A&R LISTENING', sub:'청음 · 독립 평가', x:70, y:37, w:28, h:38, tone:'blue', shape:'cut' },
-  { id:'booth', label:'VOCAL BOOTH', sub:'발음 · 가창', x:2, y:79, w:28, h:18, tone:'red', shape:'pill' },
-  { id:'mix', label:'MIX DESK', sub:'후반 · 재생 검수', x:34, y:79, w:31, h:18, tone:'green', shape:'notch' },
-  { id:'arcade', label:'BREAK ZONE', sub:'게임 · 휴식', x:69, y:79, w:29, h:18, tone:'pink', shape:'round' },
+  { id:'strategy', label:'IDEA DECK', sub:'개인 책상 · 브랜드 전략', x:2, y:4, w:29, h:29, tone:'teal', shape:'cut' },
+  { id:'meeting', label:'MEETING ROOM', sub:'회의 테이블 · 후렴 리뷰', x:35, y:4, w:30, h:29, tone:'amber', shape:'oval' },
+  { id:'archive', label:'RIGHTS ARCHIVE', sub:'독창성 조사 · 업무보고', x:69, y:4, w:29, h:29, tone:'violet', shape:'arch' },
+  { id:'music', label:'RECORDING ROOM', sub:'작사 · 프로듀싱 · 녹음', x:2, y:37, w:38, h:38, tone:'purple', shape:'studio' },
+  { id:'lounge', label:'PANTRY LOUNGE', sub:'탕비실 · 커피 · 자유 대화', x:44, y:37, w:22, h:38, tone:'orange', shape:'round' },
+  { id:'review', label:'LISTENING POD', sub:'청음실 · 독립 평가', x:70, y:37, w:28, h:38, tone:'blue', shape:'cut' },
+  { id:'booth', label:'VOCAL BOOTH', sub:'녹음부스 · 발음 디렉팅', x:2, y:79, w:28, h:18, tone:'red', shape:'pill' },
+  { id:'mix', label:'PRODUCTION BAY', sub:'개인 PC · 믹싱 · QA', x:34, y:79, w:31, h:18, tone:'green', shape:'notch' },
+  { id:'arcade', label:'CREATIVE BREAK', sub:'휴식 · 아이디어 보드', x:69, y:79, w:29, h:18, tone:'pink', shape:'round' },
 ]
 
 const agentsSeed = [
@@ -73,6 +73,12 @@ function Furniture({room}) {
   return <><div className="arcade-machine">HI<br/>SCORE</div><div className="plant">♣</div></>
 }
 
+function Workstation({agent}) {
+  return <div className="workstation" style={{left:`${agent.home[0]}%`,top:`${agent.home[1]}%`}} aria-label={`${agent.name} 개인 작업대`}>
+    <div className="monitor"><i/><b>{agent.icon}</b></div><div className="desk-top" style={{background:agent.color}}><span/><em/></div><div className="chair"/><small>{agent.name}</small>
+  </div>
+}
+
 export default function App(){
   const [agents,setAgents]=useState(agentsSeed)
   const [selected,setSelected]=useState('lead')
@@ -133,6 +139,7 @@ export default function App(){
             <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
           </section>)}
           <div className="hall-sign">♪　CREATIVE FLOOR　♪</div>
+          {agents.map(a=><Workstation key={`desk-${a.id}`} agent={a}/>)}
           {agents.map(a=><PixelPerson key={a.id} agent={a} selected={selected===a.id} onClick={()=>setSelected(a.id)}/>)}
         </div>
         <div className="controls">
