@@ -67,3 +67,18 @@
 .pantry-board{position:absolute;z-index:3;left:12%;top:23%;width:70%;height:19%;background:#fff3c9;border:3px solid #6a536a;padding:4px;color:#65465c;text-align:center;box-shadow:3px 3px #ce9c78}.pantry-board b{display:block;font:6px var(--pixel)}.pantry-board span{font-size:8px;color:#e27b5d}
 .booth-window{position:absolute;z-index:3;right:12%;top:24%;width:42%;height:30%;background:#26324e;border:4px solid #604355;box-shadow:inset 0 0 0 3px #b5e2d7;color:#ff7a69;padding:5px;font:7px var(--pixel)}.booth-window b{display:block}.booth-window span{display:block;margin-top:8px;color:#fff0b0;font-size:6px}
 .score-board{position:absolute;z-index:3;left:10%;bottom:16%;width:61%;height:20%;background:#fffdf0;border:3px solid #6a536a;box-shadow:3px 3px #ce9c78;padding:5px;color:#5b4057}.score-board b{display:block;font:6px var(--pixel);color:#4f7ac6}.score-board span{font-size:8px;display:block;margin-top:4px;color:#d77261}
+
+/* Isometric tile treatment: the canvas stays 2D, while floor geometry supplies a 3D reading. */
+.world{background-color:#ead39d;background-image:linear-gradient(30deg,#f7e7b866 12%,transparent 12.5%,transparent 87%,#b88c8366 87.5%,#b88c8366),linear-gradient(150deg,#f7e7b866 12%,transparent 12.5%,transparent 87%,#b88c8366 87.5%,#b88c8366),linear-gradient(30deg,#f7e7b866 12%,transparent 12.5%,transparent 87%,#b88c8366 87.5%,#b88c8366),linear-gradient(150deg,#f7e7b866 12%,transparent 12.5%,transparent 87%,#b88c8366 87.5%,#b88c8366);background-position:0 0,0 0,14px 8px,14px 8px;background-size:28px 16px;}
+.grid{opacity:.22;background-image:linear-gradient(30deg,transparent 48%,#8b6b7866 49%,#8b6b7866 51%,transparent 52%),linear-gradient(150deg,transparent 48%,#8b6b7866 49%,#8b6b7866 51%,transparent 52%);background-size:28px 16px;}
+.room{box-shadow:0 8px 0 #9c7069,0 12px 0 #76566a,inset 0 0 0 3px #fff0c477, inset 0 -8px 0 #7d5b7166;}
+.room:before{content:'';position:absolute;inset:5px;z-index:0;border:2px solid #fff6d044;box-shadow:inset 0 0 0 2px #7d5b7122;pointer-events:none}
+.room h2{letter-spacing:.35px;text-shadow:2px 2px #fff0c4;}
+.room-door{box-shadow:inset 4px 0 #f7c77d,3px 4px 0 #74566a}
+.room-window{box-shadow:inset 0 -5px #f4c77e,3px 3px 0 #74566a}
+
+/* Higher-resolution pixel characters: larger silhouette, crisp nearest-neighbour edges, richer drop shadow. */
+.person{scale:1.16;image-rendering:pixelated;filter:drop-shadow(2px 4px 0 #604455) drop-shadow(0 0 1px #fff2c4)}
+.person .nameplate{font-size:8px;border-width:2px;box-shadow:2px 2px #c4866c}
+.person .bubble{border-width:3px;box-shadow:4px 4px #76566a}
+.workstation{scale:1.08;filter:drop-shadow(2px 3px 0 #8c626d)}
