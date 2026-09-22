@@ -50,7 +50,7 @@ const meetingLines = [
 ]
 
 function PixelPerson({ agent, selected, onClick }) {
-  return <button className={`person ${selected?'selected':''}`} style={{left:`${agent.x}%`,top:`${agent.y}%`,'--c':agent.color}} onClick={onClick} aria-label={`${agent.name} ${agent.role}`}>
+  return <button className={`person ${selected?'selected':''} ${agent.bubble?'talking':'working'}`} style={{left:`${agent.x}%`,top:`${agent.y}%`,'--c':agent.color}} onClick={onClick} aria-label={`${agent.name} ${agent.role}`}>
     {agent.bubble && <span className="bubble">{agent.bubble}</span>}
     <span className="shadow"/><span className={`body ${agent.hair} ${agent.face} ${agent.look}`}><i className="hair"/><i className="ear"/><i className="face"><b/><em/><strong/></i><i className="shirt">{agent.icon}</i><i className="arms"/><i className="legs"/></span>
     <span className="nameplate">{agent.name}</span>
@@ -131,6 +131,7 @@ export default function App(){
       <div className="world-wrap">
         <div className="world">
           <div className="sunbeam"/><div className="grid"/>
+          <div className="office-props" aria-hidden="true"><span className="prop plant-a">♣</span><span className="prop poster-a">CM<br/>H</span><span className="prop guitar-a">♪</span><span className="prop speaker-a">▣</span><span className="prop lamp-a">◒</span><span className="prop plant-b">♣</span><span className="prop poster-b">IDEA<br/>WALL</span><span className="prop cable-a">〰〰</span></div>
           {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
             <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
           </section>)}

@@ -32,3 +32,28 @@
 .collab-island{position:absolute;z-index:3;left:35%;top:67%;width:30%;height:9%;border:3px solid #806273;background:#fff0b8;box-shadow:5px 5px 0 #c98d76, inset 0 0 0 3px #ffe8cb;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#5b4057;text-align:center;transform:rotate(-1deg);pointer-events:none}
 .collab-island b{font:7px var(--pixel);letter-spacing:.5px}.collab-island span{font-size:9px;margin-top:3px}.collab-island i{position:absolute;width:10px;height:5px;background:#5b4057;border:1px solid #3d2d4b}.collab-island i:nth-of-type(1){left:-16px;top:15px}.collab-island i:nth-of-type(2){right:-16px;top:15px}.collab-island i:nth-of-type(3){left:-16px;bottom:15px}.collab-island i:nth-of-type(4){right:-16px;bottom:15px}
 .world:before{content:'OPEN PLAN  ·  CREATIVE FLOOR';position:absolute;z-index:2;left:31%;top:3%;font:6px var(--pixel);color:#8d6b73;letter-spacing:1px;opacity:.72;pointer-events:none}
+
+/* Rectangular architecture keeps navigation clear; texture and props provide the personality. */
+.room.shape-cut,.room.shape-oval,.room.shape-arch,.room.shape-studio,.room.shape-round,.room.shape-pill,.room.shape-notch{clip-path:none;border-radius:10px}
+.office-props{position:absolute;inset:0;z-index:4;pointer-events:none;color:#68485b;font-family:var(--pixel)}
+.prop{position:absolute;display:grid;place-items:center;text-align:center;text-shadow:1px 1px #fff1c4}
+.plant-a{left:29%;top:40%;font-size:28px;color:#50a86e}.plant-b{left:67%;top:78%;font-size:25px;color:#56a66f}
+.poster-a{left:29%;top:10%;width:30px;height:29px;background:#ff8969;border:3px solid #68485b;color:#fff5c7;font-size:6px;line-height:1.5;box-shadow:3px 3px #d8a45f}
+.poster-b{left:68%;top:42%;width:42px;height:26px;background:#7c6bd0;border:3px solid #68485b;color:#fff6cb;font-size:5px;line-height:1.5;box-shadow:3px 3px #d8a45f}
+.guitar-a{left:67%;top:11%;font:34px serif;color:#e98a52;transform:rotate(-14deg)}
+.speaker-a{left:28%;top:82%;width:18px;height:23px;background:#3d405b;border:3px solid #68485b;color:#98eee0;font-size:9px;box-shadow:3px 3px #d8a45f}
+.lamp-a{left:69%;top:82%;font-size:27px;color:#f3a550;animation:lampPulse 2.4s ease-in-out infinite}
+.cable-a{left:31%;top:72%;font:14px monospace;color:#927074;letter-spacing:-4px;transform:rotate(8deg)}
+@keyframes lampPulse{50%{filter:drop-shadow(0 0 7px #ffd37a);transform:translateY(-2px)}}
+
+/* Active work is visible even when a character is not selected. */
+.person.working .body{animation:typingBob 1.5s steps(2,end) infinite}
+.person.talking .body{animation:talkGesture .65s ease-in-out infinite alternate}
+.person.working .arms{animation:typingHands .45s steps(2,end) infinite alternate}
+@keyframes typingBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@keyframes typingHands{from{transform:translateY(0)}to{transform:translateY(2px)}}
+@keyframes talkGesture{from{transform:translateY(0) rotate(-2deg)}to{transform:translateY(-3px) rotate(2deg)}}
+.workstation .monitor i{animation:screenGlow 2.2s ease-in-out infinite}
+.workstation .desk-top em{animation:cursorBlink 1s steps(2,end) infinite}
+@keyframes screenGlow{50%{filter:brightness(1.35);opacity:1}}
+@keyframes cursorBlink{50%{opacity:.25}}
