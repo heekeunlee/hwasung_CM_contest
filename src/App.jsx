@@ -2,29 +2,25 @@ import { useEffect, useMemo, useState } from 'react'
 import { Archive, BarChart3, Coffee, FileText, Headphones, Music2, Pause, Play, Radio, Users, Volume2, X } from 'lucide-react'
 
 const rooms = [
-  { id:'strategy', label:'IDEA DECK', sub:'개인 책상 · 브랜드 전략', x:2, y:4, w:29, h:29, tone:'teal', shape:'cut' },
-  { id:'meeting', label:'MEETING ROOM', sub:'회의 테이블 · 후렴 리뷰', x:35, y:4, w:30, h:29, tone:'amber', shape:'oval' },
-  { id:'archive', label:'RIGHTS ARCHIVE', sub:'독창성 조사 · 업무보고', x:69, y:4, w:29, h:29, tone:'violet', shape:'arch' },
-  { id:'music', label:'RECORDING ROOM', sub:'작사 · 프로듀싱 · 녹음', x:2, y:37, w:38, h:38, tone:'purple', shape:'studio' },
-  { id:'lounge', label:'PANTRY LOUNGE', sub:'탕비실 · 커피 · 자유 대화', x:44, y:37, w:22, h:38, tone:'orange', shape:'round' },
-  { id:'review', label:'LISTENING POD', sub:'청음실 · 독립 평가', x:70, y:37, w:28, h:38, tone:'blue', shape:'cut' },
-  { id:'booth', label:'VOCAL BOOTH', sub:'녹음부스 · 발음 디렉팅', x:2, y:79, w:28, h:18, tone:'red', shape:'pill' },
-  { id:'mix', label:'PRODUCTION BAY', sub:'개인 PC · 믹싱 · QA', x:34, y:79, w:31, h:18, tone:'green', shape:'notch' },
-  { id:'arcade', label:'CREATIVE BREAK', sub:'휴식 · 아이디어 보드', x:69, y:79, w:29, h:18, tone:'pink', shape:'round' },
+  { id:'music', label:'RECORDING ROOM', sub:'작사 · 프로듀싱 · 녹음', x:2, y:4, w:25, h:29, tone:'purple', shape:'studio' },
+  { id:'meeting', label:'MEETING ROOM', sub:'회의 테이블 · 후렴 리뷰', x:72, y:4, w:26, h:27, tone:'amber', shape:'oval' },
+  { id:'lounge', label:'PANTRY LOUNGE', sub:'탕비실 · 커피 · 자유 대화', x:78, y:34, w:20, h:27, tone:'orange', shape:'round' },
+  { id:'booth', label:'VOCAL BOOTH', sub:'방음 녹음 · 발음 디렉팅', x:2, y:72, w:24, h:24, tone:'red', shape:'pill' },
+  { id:'review', label:'LISTENING ROOM', sub:'청음 · 독립 평가', x:72, y:66, w:26, h:30, tone:'blue', shape:'cut' },
 ]
 
 const agentsSeed = [
-  { id:'lead', name:'제부장', role:'총괄 프로듀서', team:'제작본부', color:'#ff735c', x:48, y:23, home:[50,22], icon:'◆', task:'브리프와 의사결정 통합', hair:'wave', face:'smile', look:'jacket' },
-  { id:'brand', name:'동탄온', role:'브랜드 전략가', team:'전략기획팀', color:'#26bdb8', x:12, y:18, home:[12,18], icon:'▤', task:'화성만의 핵심 메시지 정의', hair:'bob', face:'bright', look:'vest' },
-  { id:'research', name:'우음표', role:'지역·청중 리서처', team:'전략기획팀', color:'#5bc58c', x:24, y:24, home:[24,24], icon:'⌕', task:'지역 근거와 청취 상황 조사', hair:'short', face:'calm', look:'cardigan' },
-  { id:'producer', name:'전곡믹스', role:'뮤직 프로듀서', team:'음악개발팀', color:'#8c6be8', x:15, y:53, home:[15,53], icon:'♫', task:'세 가지 음악 방향 설계', hair:'spike', face:'focus', look:'hoodie' },
-  { id:'writer', name:'송산송', role:'작사·탑라이너', team:'음악개발팀', color:'#f5b83d', x:28, y:65, home:[28,65], icon:'✎', task:'첫 5초 후렴 후보 작성', hair:'long', face:'smile', look:'knit' },
-  { id:'vocal', name:'햇살도레미', role:'가창·발음 디렉터', team:'음악품질팀', color:'#f15f7a', x:16, y:88, home:[16,88], icon:'●', task:'화성특례시 발음과 호흡 검토', hair:'ponytail', face:'sing', look:'scarf' },
-  { id:'ar', name:'궁평가', role:'A&R 디렉터', team:'독립평가팀', color:'#4d98ef', x:79, y:54, home:[79,54], icon:'A', task:'발전시킬 데모 후보 선별', hair:'part', face:'calm', look:'suit' },
-  { id:'critic', name:'융건평', role:'대중음악 평론가', team:'독립평가팀', color:'#8994a8', x:89, y:66, home:[89,66], icon:'★', task:'개성과 장르 완성도 비평', hair:'curl', face:'focus', look:'coat' },
-  { id:'originality', name:'고정음', role:'독창성·유사성 리서처', team:'권리검증팀', color:'#ec6a45', x:89, y:21, home:[89,21], icon:'◎', task:'가사·제목·콘셉트 선행작 조사', hair:'cap', face:'focus', look:'utility' },
-  { id:'audio', name:'누에비트', role:'믹싱·QA 엔지니어', team:'후반제작팀', color:'#55bd73', x:48, y:89, home:[48,89], icon:'≋', task:'길이·음량·재생환경 검수', hair:'buzz', face:'bright', look:'tee' },
-  { id:'visual', name:'루나픽', role:'아트·납품 디렉터', team:'후반제작팀', color:'#ee70b0', x:83, y:89, home:[83,89], icon:'▣', task:'앨범아트와 제출 패키지 설계', hair:'bun', face:'smile', look:'blazer' },
+  { id:'lead', name:'제부장', role:'총괄 프로듀서', team:'제작본부', color:'#ff735c', x:34, y:15, home:[34,15], icon:'◆', task:'브리프와 의사결정 통합', hair:'wave', face:'smile', look:'jacket' },
+  { id:'brand', name:'동탄온', role:'브랜드 전략가', team:'전략기획팀', color:'#26bdb8', x:48, y:15, home:[48,15], icon:'▤', task:'화성만의 핵심 메시지 정의', hair:'bob', face:'bright', look:'vest' },
+  { id:'research', name:'우음표', role:'지역·청중 리서처', team:'전략기획팀', color:'#5bc58c', x:61, y:15, home:[61,15], icon:'⌕', task:'지역 근거와 청취 상황 조사', hair:'short', face:'calm', look:'cardigan' },
+  { id:'producer', name:'전곡믹스', role:'뮤직 프로듀서', team:'음악개발팀', color:'#8c6be8', x:34, y:37, home:[34,37], icon:'♫', task:'세 가지 음악 방향 설계', hair:'spike', face:'focus', look:'hoodie' },
+  { id:'writer', name:'송산송', role:'작사·탑라이너', team:'음악개발팀', color:'#f5b83d', x:48, y:37, home:[48,37], icon:'✎', task:'첫 5초 후렴 후보 작성', hair:'long', face:'smile', look:'knit' },
+  { id:'vocal', name:'햇살도레미', role:'가창·발음 디렉터', team:'음악품질팀', color:'#f15f7a', x:61, y:37, home:[61,37], icon:'●', task:'화성특례시 발음과 호흡 검토', hair:'ponytail', face:'sing', look:'scarf' },
+  { id:'ar', name:'궁평가', role:'A&R 디렉터', team:'독립평가팀', color:'#4d98ef', x:34, y:59, home:[34,59], icon:'A', task:'발전시킬 데모 후보 선별', hair:'part', face:'calm', look:'suit' },
+  { id:'critic', name:'융건평', role:'대중음악 평론가', team:'독립평가팀', color:'#8994a8', x:48, y:59, home:[48,59], icon:'★', task:'개성과 장르 완성도 비평', hair:'curl', face:'focus', look:'coat' },
+  { id:'originality', name:'고정음', role:'독창성·유사성 리서처', team:'권리검증팀', color:'#ec6a45', x:61, y:59, home:[61,59], icon:'◎', task:'가사·제목·콘셉트 선행작 조사', hair:'cap', face:'focus', look:'utility' },
+  { id:'audio', name:'누에비트', role:'믹싱·QA 엔지니어', team:'후반제작팀', color:'#55bd73', x:40, y:82, home:[40,82], icon:'≋', task:'길이·음량·재생환경 검수', hair:'buzz', face:'bright', look:'tee' },
+  { id:'visual', name:'루나픽', role:'아트·납품 디렉터', team:'후반제작팀', color:'#ee70b0', x:56, y:82, home:[56,82], icon:'▣', task:'앨범아트와 제출 패키지 설계', hair:'bun', face:'smile', look:'blazer' },
 ]
 
 const reports = [
@@ -107,7 +103,7 @@ export default function App(){
         ;[tx,ty]=a.id===convo.from?[convo.target[0]-2,convo.target[1]]:[convo.target[0]+2,convo.target[1]]
         if(a.id===convo.from && phase%8>3) bubble=convo.text
       } else if(phase>=40){
-        const breaks={lead:[55,52],brand:[52,59],research:[59,60],producer:[52,48],writer:[60,48],vocal:[56,64],ar:[77,87],critic:[87,87],originality:[91,29],audio:[44,88],visual:[82,88]}; [tx,ty]=breaks[a.id]
+        const breaks={lead:[42,24],brand:[54,24],research:[64,28],producer:[42,47],writer:[54,47],vocal:[64,47],ar:[42,68],critic:[54,68],originality:[64,68],audio:[45,87],visual:[58,87]}; [tx,ty]=breaks[a.id]
       }
       const dx=tx-a.x,dy=ty-a.y,dist=Math.hypot(dx,dy)
       return {...a,x:dist>.5?a.x+dx*.16:a.x,y:dist>.5?a.y+dy*.16:a.y,bubble}
@@ -138,6 +134,7 @@ export default function App(){
           {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
             <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
           </section>)}
+          <div className="collab-island"><b>OPEN CREATIVE FLOOR</b><span>공용 아이디어 아일랜드 · 자유롭게 합류</span><i/><i/><i/><i/></div>
           <div className="hall-sign">♪　CREATIVE FLOOR　♪</div>
           {agents.map(a=><Workstation key={`desk-${a.id}`} agent={a}/>)}
           {agents.map(a=><PixelPerson key={a.id} agent={a} selected={selected===a.id} onClick={()=>setSelected(a.id)}/>)}

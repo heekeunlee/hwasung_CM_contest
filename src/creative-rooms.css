@@ -27,3 +27,8 @@
 .workstation .chair{position:absolute;left:28px;top:35px;width:16px;height:12px;background:#e88b73;border:2px solid #593b54;border-radius:5px 5px 2px 2px;box-shadow:0 7px 0 -3px #593b54}
 .workstation small{position:absolute;top:48px;left:50%;transform:translateX(-50%);font-size:7px;white-space:nowrap;color:#5a4055;background:#fff8de;border:1px solid #a27669;padding:1px 3px;box-shadow:1px 1px #dca965}
 .workstation + .person{z-index:10}
+
+/* Open-plan entertainment-company floor: desk clusters share one visible creative commons. */
+.collab-island{position:absolute;z-index:3;left:35%;top:67%;width:30%;height:9%;border:3px solid #806273;background:#fff0b8;box-shadow:5px 5px 0 #c98d76, inset 0 0 0 3px #ffe8cb;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#5b4057;text-align:center;transform:rotate(-1deg);pointer-events:none}
+.collab-island b{font:7px var(--pixel);letter-spacing:.5px}.collab-island span{font-size:9px;margin-top:3px}.collab-island i{position:absolute;width:10px;height:5px;background:#5b4057;border:1px solid #3d2d4b}.collab-island i:nth-of-type(1){left:-16px;top:15px}.collab-island i:nth-of-type(2){right:-16px;top:15px}.collab-island i:nth-of-type(3){left:-16px;bottom:15px}.collab-island i:nth-of-type(4){right:-16px;bottom:15px}
+.world:before{content:'OPEN PLAN  ·  CREATIVE FLOOR';position:absolute;z-index:2;left:31%;top:3%;font:6px var(--pixel);color:#8d6b73;letter-spacing:1px;opacity:.72;pointer-events:none}
