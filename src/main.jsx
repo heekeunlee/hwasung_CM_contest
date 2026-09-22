@@ -11,4 +11,5 @@ import './diorama-office.css'
 import './isometric-sim.css'
 import './simulator-shell.css'
 import './three-office.css'
+import './three-fixes.css'
 createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>)
