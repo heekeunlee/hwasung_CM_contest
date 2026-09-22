@@ -86,6 +86,19 @@ function RoomFeatures({room}) {
   </>
 }
 
+function OfficeV2({agents, chosen, selected, setSelected, paused, setPaused, speed, setSpeed, progress, officeTime, setReportOpen, reportOpen, activeReport, setActiveReport, filter, setFilter}) {
+  const filtered = filter==='전체' ? reports : reports.filter(r=>r.type===filter)
+  return <main className="office-v2">
+    <header className="v2-header"><div className="v2-logo"><span>H</span><div><b>HWASEONG</b><small>CREATIVE OPERATIONS</small></div></div><nav><button className="active">Studio floor</button><button>Projects <em>01</em></button><button>Knowledge base</button></nav><div className="v2-status"><i/>LIVE SESSION <strong>{officeTime}</strong></div></header>
+    <div className="v2-body">
+      <aside className="v2-rail"><div className="rail-label">TEAM / {agents.length}</div>{agents.map(a=><button key={a.id} className={selected===a.id?'active':''} onClick={()=>setSelected(a.id)}><span style={{background:a.color}}>{a.icon}</span><div><b>{a.name}</b><small>{a.role}</small></div><i className={a.bubble?'talking':''}/></button>)}<div className="rail-foot">AI CM SONG<br/><b>PRODUCTION 01</b></div></aside>
+      <section className="v2-stage"><div className="stage-head"><div><span>STUDIO FLOOR 01</span><h1>화성 AI CM송 제작 오피스</h1><p>전략부터 믹싱까지 한 플로어에서 실시간 협업 중</p></div><div className="stage-actions"><button onClick={()=>setPaused(!paused)}>{paused?'재생':'일시정지'}</button>{[1,2,4].map(n=><button key={n} className={speed===n?'active':''} onClick={()=>setSpeed(n)}>{n}×</button>)}</div></div><div className="v2-canvas"><div className="ceiling-line"/><div className="screen-wall"><span>LIVE MIX</span><b>HWASEONG / CONTROL</b><i/><i/><i/></div><div className="mix-console"><small>MASTER CONSOLE</small><div>{[1,2,3,4,5,6,7,8].map(n=><i key={n}/>)}</div></div>{rooms.map(r=><section key={r.id} className={`v2-room ${r.tone}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}><h2>{r.label}<small>{r.sub}</small></h2><RoomFeatures room={r}/></section>)}<div className="creative-table"><b>COLLAB TABLE</b><span>IDEAS / HOOK / CITY</span></div>{agents.map(a=><Workstation key={`v2-desk-${a.id}`} agent={a}/>)}{agents.map(a=><PixelPerson key={`v2-person-${a.id}`} agent={a} selected={selected===a.id} onClick={()=>setSelected(a.id)}/>)}</div><div className="stage-footer"><div><span>PROJECT PROGRESS</span><b>{progress}%</b><i><em style={{width:`${progress}%`}}/></i></div><button onClick={()=>setReportOpen(true)}><Archive size={15}/> 업무보고 아카이브 <b>{reports.length}</b></button><div className="now-playing"><Radio size={15}/> <span>NOW PLAYING</span> 여기서 행복해 · Melody Sketch 01 <audio controls src={`${import.meta.env.BASE_URL}here_happy_hwaseong_demo.mp3`}/></div></div></section>
+      <aside className="v2-inspector"><div className="inspector-title"><span>SELECTED AGENT</span><i>● WORKING</i></div><div className="agent-card"><div className={`portrait ${chosen.hair} ${chosen.face} ${chosen.look}`} style={{'--c':chosen.color}}><i className="portrait-hair"/><i className="portrait-face"><b/><em/><strong/></i><i className="portrait-shirt">{chosen.icon}</i></div><div><small>{chosen.team}</small><h2>{chosen.name}</h2><p>{chosen.role}</p></div></div><div className="insight"><span>CURRENT FOCUS</span><b>{chosen.task}</b><div><i/> 집중 작업 중</div></div><div className="insight"><span>RECENT MESSAGE</span><p>“{conversations.find(c=>c.from===chosen.id)?.text || '팀의 다음 결정을 위해 근거를 정리하고 있어요.'}”</p></div><div className="deliverables"><span>DELIVERABLES</span><b>오늘의 워크플로</b><div className="done">기획 자료 확인 <i>완료</i></div><div className="active">담당 산출물 작성 <i>진행 중</i></div><div>독립 검토 요청</div><div>업무보고 보관</div></div></aside>
+    </div>
+    {reportOpen&&<div className="v2-modal" onMouseDown={e=>e.target===e.currentTarget&&setReportOpen(false)}><section><header><div><small>PROJECT KNOWLEDGE BASE</small><h2>업무보고 아카이브</h2></div><button onClick={()=>setReportOpen(false)}><X/></button></header><div className="v2-filters">{['전체','전략','브리프','가사','평가','유사성','기술','음원'].map(x=><button className={filter===x?'active':''} onClick={()=>setFilter(x)} key={x}>{x}</button>)}</div><div className="v2-reports">{filtered.map(r=><button key={r.id} className={activeReport?.id===r.id?'active':''} onClick={()=>setActiveReport(r)}><span>{r.type}</span><em>{r.status}</em><h3>{r.title}</h3><p>{r.summary}</p><small>{r.owner} · {r.date}</small></button>)}<aside>{activeReport?<><b>{activeReport.team}</b><h2>{activeReport.title}</h2><p>{activeReport.summary}</p><h4>핵심 기록</h4><ul>{activeReport.details.map(d=><li key={d}>{d}</li>)}</ul></>:<p>보고서를 선택하면 상세 기록이 표시됩니다.</p>}</aside></div></section></div>}
+  </main>
+}
+
 export default function App(){
   const [agents,setAgents]=useState(agentsSeed)
   const [selected,setSelected]=useState('lead')
@@ -125,6 +138,8 @@ export default function App(){
   const progress=Math.min(34+Math.floor(tick/20),48)
   const officeTime=useMemo(()=>{const m=(9*60+tick*3)%1440; return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`},[tick])
   const filtered=filter==='전체'?reports:reports.filter(r=>r.type===filter)
+
+  return <OfficeV2 agents={agents} chosen={chosen} selected={selected} setSelected={setSelected} paused={paused} setPaused={setPaused} speed={speed} setSpeed={setSpeed} progress={progress} officeTime={officeTime} setReportOpen={setReportOpen} reportOpen={reportOpen} activeReport={activeReport} setActiveReport={setActiveReport} filter={filter} setFilter={setFilter}/>
 
   return <main>
     <header className="topbar">

@@ -6,4 +6,5 @@ import './creative-rooms.css'
 import './vector-broadcast.css'
 import './broadcast-control.css'
 import './premium-office.css'
+import './office-v2.css'
 createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>)
