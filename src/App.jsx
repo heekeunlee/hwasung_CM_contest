@@ -75,6 +75,17 @@ function Workstation({agent}) {
   </div>
 }
 
+function RoomFeatures({room}) {
+  return <>
+    <div className="room-door"><span>OPEN</span></div><div className="room-window"><i/><i/><i/></div>
+    {room.id==='meeting'&&<><div className="whiteboard"><b>HOOK REVIEW</b><span>① 기억성　② 발음　③ 온도</span></div><div className="slide-screen"><small>PROJECT 01</small><b>화성의 한 박자</b><i/><i/><i/></div></>}
+    {room.id==='music'&&<><div className="on-air">● ON AIR</div><div className="acoustic-panels"><i/><i/><i/><i/></div></>}
+    {room.id==='lounge'&&<div className="pantry-board"><b>PANTRY MENU</b><span>COFFEE　TEA　IDEA</span></div>}
+    {room.id==='booth'&&<div className="booth-window"><b>REC</b><span>TAKE 03</span></div>}
+    {room.id==='review'&&<div className="score-board"><b>A / B LISTENING</b><span>VOICE　HOOK　CITY</span></div>}
+  </>
+}
+
 export default function App(){
   const [agents,setAgents]=useState(agentsSeed)
   const [selected,setSelected]=useState('lead')
@@ -133,7 +144,7 @@ export default function App(){
           <div className="sunbeam"/><div className="grid"/>
           <div className="office-props" aria-hidden="true"><span className="prop plant-a">♣</span><span className="prop poster-a">CM<br/>H</span><span className="prop guitar-a">♪</span><span className="prop speaker-a">▣</span><span className="prop lamp-a">◒</span><span className="prop plant-b">♣</span><span className="prop poster-b">IDEA<br/>WALL</span><span className="prop cable-a">〰〰</span></div>
           {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
-            <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
+            <h2>{r.label}<small>{r.sub}</small></h2><RoomFeatures room={r}/><Furniture room={r}/>
           </section>)}
           <div className="collab-island"><b>OPEN CREATIVE FLOOR</b><span>공용 아이디어 아일랜드 · 자유롭게 합류</span><i/><i/><i/><i/></div>
           <div className="hall-sign">♪　CREATIVE FLOOR　♪</div>
