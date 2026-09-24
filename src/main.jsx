@@ -12,4 +12,5 @@ import './isometric-sim.css'
 import './simulator-shell.css'
 import './three-office.css'
 import './three-fixes.css'
+import './reference-art.css'
 createRoot(document.getElementById('root')).render(<StrictMode><App /></StrictMode>)
