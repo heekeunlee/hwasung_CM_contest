@@ -1,0 +1,3 @@
+.corridor-path{position:absolute;z-index:1;left:30%;top:32%;width:40%;height:48%;pointer-events:none;opacity:.7;background:linear-gradient(90deg,transparent 45%,#fff3c488 45%,#fff3c488 55%,transparent 55%),linear-gradient(0deg,transparent 45%,#fff3c488 45%,#fff3c488 55%,transparent 55%);border:2px dashed #c99d6d}
+main>footer{position:relative;z-index:20;gap:12px;min-width:0;overflow:hidden}main>footer>div{min-width:240px;max-width:300px;overflow:hidden}main>footer b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}main>footer audio{width:230px;flex:0 1 230px}main>footer p{max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.controls button[disabled]{cursor:default;opacity:1}

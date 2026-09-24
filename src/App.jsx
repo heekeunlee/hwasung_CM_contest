@@ -114,7 +114,7 @@ export default function App(){
   const [agents,setAgents]=useState(agentsSeed)
   const [selected,setSelected]=useState('lead')
   const [paused,setPaused]=useState(false)
-  const [speed,setSpeed]=useState(1)
+  const [speed]=useState(4)
   const [tick,setTick]=useState(0)
   const [reportOpen,setReportOpen]=useState(false)
   const [activeReport,setActiveReport]=useState(null)
@@ -142,7 +142,25 @@ export default function App(){
         if(a.id==='brand'&&phase<45) bubble='탕비실에서 차 한 잔 마시고 다시 합류할게요.'
         if(a.id==='lead'&&phase>=44) bubble='회의실로 모여 다음 후렴을 결정해요.'
       }
-      const dx=tx-a.x,dy=ty-a.y,dist=Math.hypot(dx,dy)
+      // Route visitors through door-side gaps and the shared hall instead of
+      // cutting diagonally across a room. The office has three horizontal
+      // bands and vertical door gaps at roughly x=33 / x=67.
+      const band=y=>y<35?0:y<78?1:2, currentBand=band(a.y), targetBand=band(ty)
+      const gapFor=(from,to)=>{
+        const gaps=targetBand===currentBand?(currentBand===1?[42,68]:[33,67]):[33,67]
+        const between=gaps.filter(g=>g>Math.min(from,to)+2&&g<Math.max(from,to)-2)
+        return (between.length?between:gaps).reduce((best,g)=>Math.abs(g-from)<Math.abs(best-from)?g:best,gaps[0])
+      }
+      let next=[tx,ty]
+      const trip=Math.hypot(tx-a.home[0],ty-a.home[1])
+      if(trip>8){
+        const gap=gapFor(a.x,tx)
+        const exitY=currentBand===0?35:currentBand===1?77:77
+        const entryY=targetBand===0?35:targetBand===1?37:77
+        const waypoints=currentBand===targetBand?[[gap,ty]]:[[gap,exitY],[gap,entryY],[tx,ty]]
+        for(const waypoint of waypoints){if(Math.hypot(waypoint[0]-a.x,waypoint[1]-a.y)>4){next=waypoint;break}}
+      }
+      const dx=next[0]-a.x,dy=next[1]-a.y,dist=Math.hypot(dx,dy)
       return {...a,x:dist>.5?a.x+dx*.16:a.x,y:dist>.5?a.y+dy*.16:a.y,bubble}
     }))
   },[tick])
@@ -168,6 +186,7 @@ export default function App(){
       <div className="world-wrap">
         <div className="world">
           <div className="sunbeam"/><div className="grid"/>
+          <div className="corridor-path" aria-hidden="true"/>
           {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
             <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
           </section>)}
@@ -176,7 +195,7 @@ export default function App(){
         </div>
         <div className="controls">
           <button onClick={()=>setPaused(!paused)}>{paused?<Play size={16}/>:<Pause size={16}/>} {paused?'계속':'일시정지'}</button>
-          {[1,2,4].map(n=><button key={n} className={speed===n?'active':''} onClick={()=>setSpeed(n)}>{n}×</button>)}
+          <button className="active" disabled>4× 고정</button>
           <span><i style={{width:`${progress}%`}}/>프로젝트 진행 {progress}%</span>
           <button className="report-btn" onClick={()=>setReportOpen(true)}><Archive size={16}/> 업무보고 {reports.length}</button>
         </div>
