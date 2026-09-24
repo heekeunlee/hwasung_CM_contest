@@ -152,8 +152,6 @@ export default function App(){
   const officeTime=useMemo(()=>{const m=(9*60+tick*3)%1440; return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`},[tick])
   const filtered=filter==='전체'?reports:reports.filter(r=>r.type===filter)
 
-  return <JourneyView agents={agents} chosen={chosen} selected={selected} setSelected={setSelected} paused={paused} setPaused={setPaused} speed={speed} setSpeed={setSpeed} progress={progress} officeTime={officeTime} setReportOpen={setReportOpen} reportOpen={reportOpen} reports={reports} filter={filter} setFilter={setFilter} activeReport={activeReport} setActiveReport={setActiveReport}/>
-
   return <main>
     <header className="topbar">
       <div className="brand"><div className="brand-mark"><Music2 size={20}/></div><div><p>HWASEONG</p><h1>SOUND LAB</h1></div></div>
@@ -170,15 +168,10 @@ export default function App(){
       <div className="world-wrap">
         <div className="world">
           <div className="sunbeam"/><div className="grid"/>
-          <div className="broadcast-wall" aria-hidden="true"><span>LIVE MIX</span><b>HWASEONG / CM CONTROL</b><i/><i/><i/></div>
-          <div className="floor-console" aria-hidden="true"><span>MASTER</span><i/><i/><i/><i/><b>● ● ● ● ● ●</b></div>
-          <div className="office-props" aria-hidden="true"><span className="prop plant-a">♣</span><span className="prop poster-a">CM<br/>H</span><span className="prop guitar-a">♪</span><span className="prop speaker-a">▣</span><span className="prop lamp-a">◒</span><span className="prop plant-b">♣</span><span className="prop poster-b">IDEA<br/>WALL</span><span className="prop cable-a">〰〰</span></div>
           {rooms.map(r=><section key={r.id} className={`room ${r.tone} shape-${r.shape}`} style={{left:`${r.x}%`,top:`${r.y}%`,width:`${r.w}%`,height:`${r.h}%`}}>
-            <h2>{r.label}<small>{r.sub}</small></h2><RoomFeatures room={r}/><Furniture room={r}/>
+            <h2>{r.label}<small>{r.sub}</small></h2><Furniture room={r}/>
           </section>)}
-          <div className="collab-island"><b>OPEN CREATIVE FLOOR</b><span>공용 아이디어 아일랜드 · 자유롭게 합류</span><i/><i/><i/><i/></div>
           <div className="hall-sign">♪　CREATIVE FLOOR　♪</div>
-          {agents.map(a=><Workstation key={`desk-${a.id}`} agent={a}/>)}
           {agents.map(a=><PixelPerson key={a.id} agent={a} selected={selected===a.id} onClick={()=>setSelected(a.id)}/>)}
         </div>
         <div className="controls">
