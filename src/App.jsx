@@ -73,6 +73,21 @@ const meetingLines = [
   '결정: 오늘은 후렴 두 안을 녹음실로 넘깁니다.',
 ]
 
+const activeRoutes = {
+  lead:[[34,15],[50,27],[50,55]], brand:[[48,15],[43,22],[78,49]], research:[[61,15],[18,22],[64,28]],
+  producer:[[34,37],[42,47],[37,72]], writer:[[48,37],[50,49],[23,72]], vocal:[[61,37],[64,47],[61,68]],
+  ar:[[34,59],[50,55],[42,68]], critic:[[48,59],[52,59],[84,52]], originality:[[61,59],[64,68],[58,29]],
+  audio:[[40,82],[45,87],[42,47]], visual:[[56,82],[58,87],[59,49]],
+}
+const ambientLines = [
+  '자료를 정리하고 다음 작업으로 넘길게요.', '지금 들은 포인트를 업무보고에 기록했어요.',
+  '동료 의견을 반영해 한 번 더 다듬고 있어요.', '화성의 장면이 더 잘 느껴지는지 확인 중이에요.',
+  '다음 담당자에게 필요한 파일을 준비할게요.', '짧게 듣고도 기억되는지 반복해서 점검해요.',
+  '아이디어를 세 가지 버전으로 나눠 비교하고 있어요.', '회의 전에 핵심 근거를 한 줄로 정리할게요.',
+  '작업물을 공유 폴더에 올리고 피드백을 기다릴게요.', '완성도를 높일 작은 수정 포인트를 찾았어요.',
+  '지금 맡은 파트를 마무리하고 팀에 합류할게요.',
+]
+
 function PixelPerson({ agent, selected, onClick }) {
   return <button className={`person ${selected?'selected':''} ${agent.bubble?'talking':'working'}`} style={{left:`${agent.x}%`,top:`${agent.y}%`,'--c':agent.color}} onClick={onClick} aria-label={`${agent.name} ${agent.role}`}>
     {agent.bubble && <span className="bubble">{agent.bubble}</span>}
@@ -151,6 +166,9 @@ export default function App(){
     const convo=conversations[Math.floor(tick/8)%conversations.length]
     setAgents(prev=>prev.map(a=>{
       let tx=a.home[0], ty=a.home[1], bubble=''
+      const agentIndex=agentsSeed.findIndex(seed=>seed.id===a.id)
+      const route=activeRoutes[a.id]||[a.home]
+      const routeStep=Math.floor((tick+agentIndex*3)/8)%route.length
       if(phase>=32 && phase<40 && ['lead','brand','producer','ar'].includes(a.id)){
         const seats={lead:[49,17],brand:[43,22],producer:[56,22],ar:[50,27]}; [tx,ty]=seats[a.id]
         const speaker=['lead','brand','producer','ar'].indexOf(a.id)
@@ -162,6 +180,11 @@ export default function App(){
         const breaks={lead:[84,18],brand:[78,49],research:[64,28],producer:[42,47],writer:[78,49],vocal:[64,47],ar:[42,68],critic:[84,52],originality:[64,68],audio:[45,87],visual:[58,87]}; [tx,ty]=breaks[a.id]
         if(a.id==='brand'&&phase<45) bubble='탕비실에서 차 한 잔 마시고 다시 합류할게요.'
         if(a.id==='lead'&&phase>=44) bubble='회의실로 모여 다음 후렴을 결정해요.'
+      } else {
+        // Every agent cycles through their desk, collaboration point and
+        // review area so nobody appears idle between scheduled conversations.
+        ;[tx,ty]=route[routeStep]
+        if((phase+agentIndex*2)%8>=2) bubble=ambientLines[(tick+agentIndex)%ambientLines.length]
       }
       // Route visitors through door-side gaps and the shared hall instead of
       // cutting diagonally across a room. The office has three horizontal
