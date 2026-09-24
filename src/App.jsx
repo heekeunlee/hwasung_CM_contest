@@ -128,7 +128,9 @@ export default function App(){
         ;[tx,ty]=a.id===convo.from?[convo.target[0]-2,convo.target[1]]:[convo.target[0]+2,convo.target[1]]
         if(a.id===convo.from && phase%8>3) bubble=convo.text
       } else if(phase>=40){
-        const breaks={lead:[42,24],brand:[54,24],research:[64,28],producer:[42,47],writer:[54,47],vocal:[64,47],ar:[42,68],critic:[54,68],originality:[64,68],audio:[45,87],visual:[58,87]}; [tx,ty]=breaks[a.id]
+        const breaks={lead:[84,18],brand:[78,49],research:[64,28],producer:[42,47],writer:[78,49],vocal:[64,47],ar:[42,68],critic:[84,52],originality:[64,68],audio:[45,87],visual:[58,87]}; [tx,ty]=breaks[a.id]
+        if(a.id==='brand'&&phase<45) bubble='탕비실에서 차 한 잔 마시고 다시 합류할게요.'
+        if(a.id==='lead'&&phase>=44) bubble='회의실로 모여 다음 후렴을 결정해요.'
       }
       const dx=tx-a.x,dy=ty-a.y,dist=Math.hypot(dx,dy)
       return {...a,x:dist>.5?a.x+dx*.16:a.x,y:dist>.5?a.y+dy*.16:a.y,bubble}
