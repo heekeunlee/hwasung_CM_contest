@@ -1,13 +1,16 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Archive, BarChart3, Coffee, FileText, Headphones, Music2, Pause, Play, Radio, Users, Volume2, X } from 'lucide-react'
-import ThreeOffice from './ThreeOffice'
 
 const rooms = [
-  { id:'music', label:'RECORDING ROOM', sub:'작사 · 프로듀싱 · 녹음', x:2, y:4, w:25, h:29, tone:'purple', shape:'studio' },
-  { id:'meeting', label:'MEETING ROOM', sub:'회의 테이블 · 후렴 리뷰', x:72, y:4, w:26, h:27, tone:'amber', shape:'oval' },
-  { id:'lounge', label:'PANTRY LOUNGE', sub:'탕비실 · 커피 · 자유 대화', x:78, y:34, w:20, h:27, tone:'orange', shape:'round' },
-  { id:'booth', label:'VOCAL BOOTH', sub:'방음 녹음 · 발음 디렉팅', x:2, y:72, w:24, h:24, tone:'red', shape:'pill' },
-  { id:'review', label:'LISTENING ROOM', sub:'청음 · 독립 평가', x:72, y:66, w:26, h:30, tone:'blue', shape:'cut' },
+  { id:'strategy', label:'STRATEGY LAB', sub:'브랜드 전략 · 리서치', x:2, y:4, w:29, h:29, tone:'teal', shape:'cut' },
+  { id:'meeting', label:'MEETING ROOM', sub:'의사결정 · 리뷰', x:35, y:4, w:30, h:29, tone:'amber', shape:'oval' },
+  { id:'archive', label:'ORIGINALITY ARCHIVE', sub:'유사성 조사 · 업무보고', x:69, y:4, w:29, h:29, tone:'violet', shape:'arch' },
+  { id:'music', label:'MUSIC STUDIO', sub:'작사 · 프로듀싱', x:2, y:37, w:38, h:38, tone:'purple', shape:'studio' },
+  { id:'lounge', label:'VINYL LOUNGE', sub:'커피 · 자유 대화', x:44, y:37, w:22, h:38, tone:'orange', shape:'round' },
+  { id:'review', label:'A&R LISTENING', sub:'청음 · 독립 평가', x:70, y:37, w:28, h:38, tone:'blue', shape:'cut' },
+  { id:'booth', label:'VOCAL BOOTH', sub:'발음 · 가창', x:2, y:79, w:28, h:18, tone:'red', shape:'pill' },
+  { id:'mix', label:'MIX DESK', sub:'후반 · 재생 검수', x:34, y:79, w:31, h:18, tone:'green', shape:'notch' },
+  { id:'arcade', label:'BREAK ZONE', sub:'게임 · 휴식', x:69, y:79, w:29, h:18, tone:'pink', shape:'round' },
 ]
 
 const agentsSeed = [
@@ -141,8 +144,6 @@ export default function App(){
   const progress=Math.min(34+Math.floor(tick/20),48)
   const officeTime=useMemo(()=>{const m=(9*60+tick*3)%1440; return `${String(Math.floor(m/60)).padStart(2,'0')}:${String(m%60).padStart(2,'0')}`},[tick])
   const filtered=filter==='전체'?reports:reports.filter(r=>r.type===filter)
-
-  return <ThreeOffice agents={agents} chosen={chosen} selected={selected} setSelected={setSelected} paused={paused} setPaused={setPaused} speed={speed} setSpeed={setSpeed} progress={progress} officeTime={officeTime} setReportOpen={setReportOpen} reportOpen={reportOpen} reportsCount={reports.length} reports={reports} filter={filter} setFilter={setFilter} activeReport={activeReport} setActiveReport={setActiveReport}/>
 
   return <main>
     <header className="topbar">
