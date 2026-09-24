@@ -38,19 +38,39 @@ const reports = [
 ]
 
 const conversations = [
-  { from:'writer', to:'producer', text:'후렴의 “화성” 앞을 한 박자 비워볼게요.', target:[22,58] },
-  { from:'critic', to:'ar', text:'친근함과 도시 고유성을 따로 평가하죠.', target:[84,59] },
-  { from:'brand', to:'research', text:'명소 나열보다 시민의 장면을 찾아주세요.', target:[18,22] },
-  { from:'vocal', to:'writer', text:'받침이 몰리지 않게 음절을 다시 볼게요.', target:[23,72] },
-  { from:'audio', to:'producer', text:'휴대폰에서도 도시명이 들려야 해요.', target:[37,72] },
-  { from:'visual', to:'brand', text:'화성의 색을 앨범아트 언어로 옮길게요.', target:[59,49] },
-  { from:'originality', to:'writer', text:'핵심 후렴을 선행 가사와 교차검색할게요.', target:[58,29] },
+  { from:'writer', to:'producer', text:'후렴의 “화성” 앞을 한 박자 비워볼게요.', reply:'좋아요, 그 빈칸에 박수를 넣어볼게요.', target:[22,58] },
+  { from:'critic', to:'ar', text:'친근함과 도시 고유성을 따로 평가하죠.', reply:'점수표에 기억성과 독창성을 나눠 적겠습니다.', target:[84,59] },
+  { from:'brand', to:'research', text:'명소 나열보다 시민의 장면을 찾아주세요.', reply:'동탄호수공원 산책 장면부터 확인할게요.', target:[18,22] },
+  { from:'vocal', to:'writer', text:'받침이 몰리지 않게 음절을 다시 볼게요.', reply:'부르기 쉬운 모음으로 정리해둘게요.', target:[23,72] },
+  { from:'audio', to:'producer', text:'휴대폰에서도 도시명이 들려야 해요.', reply:'저역을 비우고 보컬을 앞으로 세울게요.', target:[37,72] },
+  { from:'visual', to:'brand', text:'화성의 색을 앨범아트 언어로 옮길게요.', reply:'주황빛 노을과 민트 포인트를 연결해요.', target:[59,49] },
+  { from:'originality', to:'writer', text:'핵심 후렴을 선행 가사와 교차검색할게요.', reply:'검색어 변형까지 기록해서 공유하겠습니다.', target:[58,29] },
+  { from:'lead', to:'brand', text:'이번 안의 한 문장 목표를 말해볼까요?', reply:'한 번 듣고 화성을 떠올리게 하겠습니다.', target:[43,22] },
+  { from:'research', to:'brand', text:'시민 인터뷰에서 “주말마다 만나요”가 반복돼요.', reply:'그 말을 후렴의 생활 언어로 써볼게요.', target:[48,22] },
+  { from:'producer', to:'writer', text:'템포는 112 BPM이면 라디오에 잘 붙어요.', reply:'그 박자에 맞춰 다섯 음절 훅을 만들게요.', target:[50,49] },
+  { from:'ar', to:'critic', text:'데모 A와 B를 익명으로 바꿔 들려드릴게요.', reply:'첫인상과 재청취 의향을 따로 적겠습니다.', target:[52,59] },
+  { from:'writer', to:'vocal', text:'“여기”에서 살짝 올라가면 기억에 남아요.', reply:'호흡 위치를 표시해서 녹음해볼게요.', target:[61,49] },
+  { from:'brand', to:'originality', text:'슬로건 후보 세 개의 충돌 가능성을 봐주세요.', reply:'상표·광고 문구까지 함께 확인하겠습니다.', target:[63,59] },
+  { from:'audio', to:'visual', text:'최종 영상은 53초 기준으로 맞춰주세요.', reply:'파형과 자막 타이밍을 같은 길이로 잡을게요.', target:[56,87] },
+  { from:'visual', to:'lead', text:'출품 썸네일은 노을과 사람 실루엣으로 갑니다.', reply:'노래의 따뜻함이 먼저 보이면 좋겠어요.', target:[50,27] },
+  { from:'critic', to:'writer', text:'도시 이름을 반복해도 과하지 않은지 들어볼게요.', reply:'두 번째 반복은 화음으로만 남겨볼게요.', target:[48,49] },
+  { from:'vocal', to:'producer', text:'“행복”의 ㅎ 발음이 약간 묻혀요.', reply:'반주를 한 박자 줄여서 공간을 만들죠.', target:[42,47] },
+  { from:'originality', to:'ar', text:'유사 후보 두 건은 위험도를 표시해두었습니다.', reply:'안전한 후보부터 청취 테스트에 올리죠.', target:[84,59] },
+  { from:'research', to:'lead', text:'가족 단위 청취자도 따라 부를 수 있어야 해요.', reply:'세대가 함께 부르는 콜앤리스폰스로 가겠습니다.', target:[50,27] },
+  { from:'producer', to:'audio', text:'후렴 끝에 짧은 효과음을 넣어볼까요?', reply:'재생 환경별로 튀지 않는지 먼저 검수할게요.', target:[45,87] },
+  { from:'lead', to:'all', text:'좋아요. 다음 라운드는 이 훅으로 출발합니다.', reply:'각자 결과물을 보고서에 연결해둘게요.', target:[50,27] },
 ]
 
 const meetingLines = [
   '안건: 세 가지 콘셉트를 같은 조건으로 비교해요.',
   '결론: “여기서 행복해”도 기준안으로 다시 경쟁합니다.',
   '다음: 첫 5초 후렴 여섯 개를 먼저 검토해요.',
+  '브랜드: 화성의 일상 장면을 한 컷으로 잡아주세요.',
+  '작사: 입에 붙는 다섯 음절 훅부터 고를게요.',
+  '프로듀서: 라디오에서 첫 박자가 바로 들려야 합니다.',
+  'A&R: 익명 청취 결과를 다음 회의에 가져오겠습니다.',
+  '품질: 휴대폰 스피커에서도 도시명이 선명해야 해요.',
+  '결정: 오늘은 후렴 두 안을 녹음실로 넘깁니다.',
 ]
 
 function PixelPerson({ agent, selected, onClick }) {
@@ -133,10 +153,11 @@ export default function App(){
       let tx=a.home[0], ty=a.home[1], bubble=''
       if(phase>=32 && phase<40 && ['lead','brand','producer','ar'].includes(a.id)){
         const seats={lead:[49,17],brand:[43,22],producer:[56,22],ar:[50,27]}; [tx,ty]=seats[a.id]
-        if(a.id==='lead') bubble=meetingLines[Math.floor((phase-32)/3)%meetingLines.length]
-      } else if(phase<30 && (a.id===convo.from || a.id===convo.to)) {
+        const speaker=['lead','brand','producer','ar'].indexOf(a.id)
+        bubble=meetingLines[(Math.floor((phase-32)/2)+speaker)%meetingLines.length]
+      } else if(phase<32 && (a.id===convo.from || a.id===convo.to || (convo.to==='all' && ['lead','brand','producer','ar'].includes(a.id)))) {
         ;[tx,ty]=a.id===convo.from?[convo.target[0]-2,convo.target[1]]:[convo.target[0]+2,convo.target[1]]
-        if(a.id===convo.from && phase%8>3) bubble=convo.text
+        if(phase%8>1) bubble=a.id===convo.from?convo.text:(convo.reply||'확인했어요. 바로 반영할게요.')
       } else if(phase>=40){
         const breaks={lead:[84,18],brand:[78,49],research:[64,28],producer:[42,47],writer:[78,49],vocal:[64,47],ar:[42,68],critic:[84,52],originality:[64,68],audio:[45,87],visual:[58,87]}; [tx,ty]=breaks[a.id]
         if(a.id==='brand'&&phase<45) bubble='탕비실에서 차 한 잔 마시고 다시 합류할게요.'
