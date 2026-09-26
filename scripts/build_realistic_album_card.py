@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1920, 1080
-bg = Image.open('public/hwaseong-cm-cover-realistic.png').convert('RGB').resize((W, H), Image.Resampling.LANCZOS)
+bg = Image.open('public/hwaseong-cm-cover.png').convert('RGB').resize((W, H), Image.Resampling.LANCZOS)
 layer = Image.new('RGBA', (W, H), (0, 0, 0, 0))
 draw = ImageDraw.Draw(layer)
 
